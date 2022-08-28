@@ -41,3 +41,4 @@ __pycache__/
 yalc.lock
 
 .vscode/settings.json
+*.zip
