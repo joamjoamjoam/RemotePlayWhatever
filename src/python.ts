@@ -31,6 +31,14 @@ export function setServer(s: ServerAPI) {
 }
 
 // Python functions
-export function startRemotePlaySession(): Promise<any> {
-    return server!.callPluginMethod("startRemotePlaySession", {});
+export function startRemotePlaySession(player1ID: string, player2ID: string, player3ID: string): Promise<any> {
+    return server!.callPluginMethod("startRemotePlaySession", { player1ID: player1ID, player2ID : player2ID, player3ID : player3ID });
+}
+
+export function getNamesForUI(): Promise<any> {
+    return server!.callPluginMethod("getNamesForUI", {});
+}
+
+export function getIDForNameForUI(friendName: string): Promise<any> {
+    return server!.callPluginMethod("getIDForNameForUI", {friendName: friendName});
 }

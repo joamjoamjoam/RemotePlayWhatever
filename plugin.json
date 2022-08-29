@@ -1,9 +1,9 @@
 {
   "name": "Remote Play Whatever",
   "author": "Trent Callan",
-  "flags": ["debug"],
+  "flags": ["debug", "_root"],
   "publish": {
-    "tags": ["Remote Play"],
+    "tags": ["Remote Play", "root"],
     "description": "Starts a Remote Play Session for the running game.",
     "image": "https://raw.githubusercontent.com/joamjoamjoam/ProtonDBGameBadge/main/images/crosscode.jpg"
   }
