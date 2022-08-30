@@ -42,3 +42,11 @@ export function getNamesForUI(): Promise<any> {
 export function getIDForNameForUI(friendName: string): Promise<any> {
     return server!.callPluginMethod("getIDForNameForUI", {friendName: friendName});
 }
+
+export function addFriendFromUI( friendID : string, friendName: string): Promise<any> {
+    return server!.callPluginMethod("addFriendFromUI", {friendID : friendID, friendName: friendName});
+}
+
+export function deleteFriendFromUI(friendName: string): Promise<any> {
+    return server!.callPluginMethod("deleteFriendFromUI", {friendName: friendName});
+}

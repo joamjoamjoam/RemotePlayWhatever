@@ -67,6 +67,8 @@ def saveFriendsJson(jsonList):
         pass
 
 def addFriend(friendID, friendName):
+    log(f"Adding Friend {friendName} with ID {friendID}")
+    
     friendsDict = getFriendsJson()
 
     try:
@@ -74,6 +76,18 @@ def addFriend(friendID, friendName):
         saveFriendsJson(friendsDict)
     except:
         log("Error Adding friend")
+
+def deleteFriendWithName(friendName):
+    log(f"Deleting Friend {friendName}")
+    
+    friendsDict = getFriendsJson()
+
+    try:
+        if(friendName in friendsDict.keys()):
+            del friendsDict[friendName]
+            saveFriendsJson(friendsDict)
+    except:
+        log("Error Deleting friend")
 
 def getNames():
     friendsNames = ""
@@ -108,18 +122,20 @@ class Plugin:
 
     async def getNamesForUI(self):
         return getNames()
-    
 
     async def addFriendFromUI(self, friendID, friendName):
         addFriend(friendID, friendName)
+    
+    async def deleteFriendFromUI(self, friendName):
+        deleteFriendWithName(friendName)
 
     async def startRemotePlaySession(self, player1ID, player2ID, player3ID):
         # jqui: 76561198042324773
         # repressive: 76561197963847260
-        #kris: 76561198334946866
-        #twins: 76561198127153328
-        #addFriend("76561198127153328","Twinz")
-        #addFriend("76561198334946866","kris")
+        # kris: 76561198334946866
+        # twins: 76561198127153328
+        # addFriend("76561198127153328","Twinz")
+        # addFriend("76561198334946866","kris")
         commandIsValid = False
         player1ID = str(player1ID)
         player2ID = str(player2ID)
