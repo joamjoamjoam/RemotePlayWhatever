@@ -25,6 +25,7 @@ Uses [Remote Play Whatever](https://github.com/m4dEngi/RemotePlayWhatever) to cr
 * (Host Device) Steam Deck may freeze if you do not end the session in the QAM before closing the game on the host.
 * (Both) Do not tab out of the game or the client controls will stop working until the session is ended and restarted.
 * (Both) Can't change the donor game App ID (Must use Brawlhalla). (coming in v2)
+* (Both) Beta Steam Client does not work. The client will crash when creating a session with RPW.
 
 
 Note: This is a plugin for the Decky Loader. You must have it installed to use this plug-in.
