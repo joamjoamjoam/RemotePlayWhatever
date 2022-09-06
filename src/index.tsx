@@ -115,7 +115,7 @@ const Content: VFC<{ serverAPI: ServerAPI; }> = ({}) => {
               python.resolve(python.getIDForNameForUI(index.label), setPlayer1ID)
             }}
           />
-      <DropdownItem
+      {/* <DropdownItem
             label={"Friend 2"}
             description={rerenderTrigger}
             menuLabel={"Select Second Player to Invite"}
@@ -134,7 +134,7 @@ const Content: VFC<{ serverAPI: ServerAPI; }> = ({}) => {
             onChange={(index) => {
               python.resolve(python.getIDForNameForUI(index.label), setPlayer3ID)
             }}
-          />
+          /> */}
       </PanelSectionRow>
       <PanelSectionRow>
         <ButtonItem
