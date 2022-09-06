@@ -20,7 +20,7 @@ Uses [Remote Play Whatever](https://github.com/m4dEngi/RemotePlayWhatever) to cr
 2. The session will end and you can close your game without issues.
 3. Closing a game without first ending the session as the host might cause the steam UI to freeze. See Known Issues below.
 
-Known Issues being worked on in Remote Play Whatever:
+## Known Issues:
 * (Client Device) Games that do not run in proton (Yuzu, Retroarch etc.) send no sound to the client.
 * (Host Device) Steam Deck may freeze if you do not end the session in the QAM before closing the game on the host.
 * (Both) Do not tab out of the game or the client controls will stop working until the session is ended and restarted.
