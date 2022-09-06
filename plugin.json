@@ -4,7 +4,7 @@
   "flags": ["_root"],
   "publish": {
     "tags": ["Remote Play", "root"],
-    "description": "Starts a Remote Play Together Session for non steam games.",
+    "description": "Starts a Remote Play Together Session for non steam games. (Install Brawlhalla from steam as the donor game.)",
     "image": "https://github.com/joamjoamjoam/RemotePlayWhatever/raw/main/images/qamUI.jpg"
   }
 }
