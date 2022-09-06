@@ -8,7 +8,7 @@ Uses [Remote Play Whatever](https://github.com/m4dEngi/RemotePlayWhatever) to cr
 
 1. If you do not have Brawlhalla in your steam library, add it using the steam store. (Its free.)
 2. Using the plugin UI in the QAM (...) add your friend using the Add Friend Button.
-3. Add a Nickname for your friend and their Steam ID64. [Get Steam ID64](https://steamid.io).
+3. Add a Nickname for your friend and their Steam ID64. [Get Steam ID64](https://steamid.io)
 4. Start any game without native RPT support.
 5. Uiding the plugin UI Select your friend that you added and select the Start Remote Play Session Button
 6. Your friend will be sent an invitation link via steam chat.
