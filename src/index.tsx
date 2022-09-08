@@ -26,7 +26,9 @@ function setFriendsList(friendsString : string){
   friendsList = []
   for (let index = 0; index < array.length; index++) {
     const element = array[index];
-    friendsList.push(element);
+    if(element.length > 0){
+      friendsList.push(element);
+    }
   }
 }
 
@@ -83,7 +85,6 @@ const Content: VFC<{ serverAPI: ServerAPI; }> = ({}) => {
   python.resolve(python.getNamesForUI(), (names : string) => {setFriendsList(names); tmpRender = !tmpRender; setRenderTrigger(getNewRenderTrigger(tmpRender))});
 
   const FriendsDropdownOptions = useMemo(() => {
-    console.log("In Memo")
     return [
       { label: "None", data: -1 },
       ...friendsList
@@ -93,7 +94,7 @@ const Content: VFC<{ serverAPI: ServerAPI; }> = ({}) => {
   }, [friendsList]);
 
   return (
-    <PanelSection title="Settings">
+    <PanelSection>
       <PanelSectionRow>
         <ButtonItem
             layout="below"
@@ -144,10 +145,28 @@ const Content: VFC<{ serverAPI: ServerAPI; }> = ({}) => {
             Router.Navigate("/addFriends");
           }}
         >
-          Add to Friends List
+          Modify Friends List
+        </ButtonItem>
+        <ButtonItem
+          layout="below"
+          onClick={() => {
+            tmpRender = !tmpRender; setRenderTrigger(getNewRenderTrigger(tmpRender))
+          }}
+        >
+          Refresh Friends List
         </ButtonItem>
 
     </PanelSectionRow>
+        <ButtonItem
+          label="Brawlhalla (donor game) must be in your library."
+          layout="below"
+          onClick={() => {
+            Router.CloseSideMenus();
+            Router.NavigateToStoreApp(291550);
+          }}
+        >
+          Brawlhalla Store Page
+        </ButtonItem>
     </PanelSection>
   );
 };

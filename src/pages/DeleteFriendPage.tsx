@@ -11,7 +11,9 @@ function setFriendsList(friendsString : string){
     friendsList = []
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
-        friendsList.push(element);
+        if(element.length > 0){
+            friendsList.push(element);
+        }
     }
 }
 
@@ -33,7 +35,8 @@ export const DeleteFriendPage: VFC = () => {
     const [selectedIndex, setSelectedIndex] = useState(0)
     const [renderTrigger, setRenderTrigger] = useState("")
 
-    python.resolve(python.getNamesForUI(), (names : string) => {setFriendsList(names); setRenderTrigger(getNewRenderTrigger(!tmpRender))});
+    python.resolve(python.getNamesForUI(), (names : string) => {setFriendsList(names); setRenderTrigger(getNewRenderTrigger(!tmpRender)); if(friendsList.length > 0){ setFriendToDelete(friendsList[0]); }});
+    
 
     const FriendsDropdownOptions = useMemo(() => {
         return [
