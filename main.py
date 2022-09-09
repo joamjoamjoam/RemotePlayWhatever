@@ -153,13 +153,17 @@ class Plugin:
         
         rc = 0
         command = "export DISPLAY=:1 "
-        rpwCommandTemplate = "/home/deck/homebrew/plugins/RemotePlayWhatever/RemotePlayWhatever.AppImage -a 291550 -i \"<plid>\""
+        rpwCommandTemplate = "/home/deck/homebrew/plugins/RemotePlayWhatever/RemotePlayWhatever.AppImage -a 291550 -i \"<playerIDString>\""
+
+        tmpList = []
 
         for key in tmpDict.keys():
             if int(key) > 0:
                 commandIsValid = True
-                command = command + " && " + rpwCommandTemplate.replace("<plid>", key)
+                tmpList.append(key)
+                
 
+        command = command + " && " + rpwCommandTemplate.replace("<playerIDString>", ",".join(tmpList))
         log(f"Running RPW Command: {command}")
 
         if commandIsValid:
