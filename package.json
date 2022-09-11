@@ -2,6 +2,7 @@
   "name": "Remote Play Whatever",
   "version": "0.5.0",
   "description": "Play Non Steam Games with friends over Remote pLay Together.",
+  "remote_binary" : "https://github.com/m4dEngi/RemotePlayWhatever/releases/download/0.2.1-pre-alpha/RemotePlayWhatever-0.2.0-x86_64.AppImage",
   "scripts": {
     "build": "shx rm -rf dist && rollup -c",
     "watch": "rollup -c -w",
