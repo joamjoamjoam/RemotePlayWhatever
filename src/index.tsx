@@ -1,174 +1,123 @@
-import {PanelSection, PanelSectionRow, ButtonItem, staticClasses, definePlugin, ServerAPI, DropdownItem, Router, SidebarNavigation } from "decky-frontend-lib";
+import {
+  PanelSection,
+  PanelSectionRow,
+  ButtonItem,
+  staticClasses,
+  definePlugin,
+  ServerAPI,
+  SingleDropdownOption,
+  DropdownItem,
+  Router,
+} from "decky-frontend-lib";
 import { VFC, useMemo, useState } from "react";
 import { FaShip } from "react-icons/fa";
 import * as python from "./python";
-import { AddFriendPage, DeleteFriendPage } from "./pages";
 
- // returns function passed for convenience
-// later, to unpatch
-
-var friendsList = new Array<string>()
-
-function getNewRenderTrigger(renderTrigger : boolean){
-  var rv = ""
-  if(renderTrigger){
-    rv = "  "
-  }
-  else{
-    rv = " "
-  }
-
-  return rv
-}
-
-function setFriendsList(friendsString : string){
-  var array = friendsString.split(",")
-  friendsList = []
-  for (let index = 0; index < array.length; index++) {
-    const element = array[index];
-    if(element.length > 0){
-      friendsList.push(element);
-    }
-  }
-}
-
-
-const FriendRouter: VFC = () => {
-  return (
-    <SidebarNavigation
-      title="Manage Friends"
-      showTitle
-      pages={[
-        {
-          title: "Add Friend",
-          content: <AddFriendPage />,
-          route: "/addFriends/addFriendID",
-        },
-        {
-          title: "Delete Friend",
-          content: <DeleteFriendPage />,
-          route: "/addFriends/deleteFriend",
-        },
-      ]}
-    />
-  );
+type Friend = {
+  name: string;
+  steamId: string;
 };
+
+type SelectedPlayers = string[];
 
 export default definePlugin((serverApi: ServerAPI) => {
   python.setServer(serverApi);
-  python.resolve(python.getNamesForUI(), setFriendsList);
-
-
-  serverApi.routerHook.addRoute("/addFriends", () => (
-    <FriendRouter/>
-  ));
 
   return {
     title: <div className={staticClasses.Title}>Remote Play Whatever</div>,
     content: <Content serverAPI={serverApi} />,
     icon: <FaShip />,
-    onDismount() {
-    },
+    onDismount() {},
   };
 });
 
+const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
+  // @ts-ignore:next-line (window is untyped)
+  const friends: Friend[] = window.friendStore.allFriends.map((friend) => {
+    return {
+      name: friend.displayName,
+      steamId: friend.m_persona.m_steamid.ConvertTo64BitString(),
+    };
+  });
 
-const Content: VFC<{ serverAPI: ServerAPI; }> = ({}) => {
-
-  const [player1ID, setPlayer1ID] = useState("0")
-  const [player2ID, setPlayer2ID] = useState("0")
-  const [player3ID, setPlayer3ID] = useState("0")
-
-  var tmpRender = false
-  const [rerenderTrigger, setRenderTrigger] = useState("")
-
-  python.resolve(python.getNamesForUI(), (names : string) => {setFriendsList(names); tmpRender = !tmpRender; setRenderTrigger(getNewRenderTrigger(tmpRender))});
+  const [selectedPlayerIds, setSelectedPlayerIds] = useState<SelectedPlayers>([
+    "0",
+    "0",
+    "0",
+  ]);
 
   const FriendsDropdownOptions = useMemo(() => {
     return [
       { label: "None", data: -1 },
-      ...friendsList
-      .map((p, index) => ({ label: p, data: index }))
-      .sort((a, b) => a.label.localeCompare(b.label))
+      ...friends
+        .map((player, index) => ({
+          label: player.name,
+          data: index,
+        }))
+        .sort((a, b) => a.label.localeCompare(b.label)),
     ];
-  }, [friendsList]);
+  }, [friends]);
+
+  const handlePlayerSelectionChange = (
+    option: SingleDropdownOption,
+    dropDownIndex: number
+  ) => {
+    const selectedFriend =
+      option.label === "None"
+        ? { name: "None", steamId: "0" }
+        : (friends.find((friend) => friend.name === option.label) as Friend);
+
+    const newSelectedPlayers = selectedPlayerIds.map((playerId, index) => {
+      if (index === dropDownIndex) {
+        return selectedFriend.steamId;
+      }
+      return playerId;
+    });
+
+    setSelectedPlayerIds(newSelectedPlayers);
+  };
 
   return (
     <PanelSection>
       <PanelSectionRow>
         <ButtonItem
-            layout="below"
-            onClick={() => 
-              python.execute(python.startRemotePlaySession(player1ID, player2ID, player3ID))
-            }
-          >
-            Start Remote Play Session
-          </ButtonItem>
+          layout="below"
+          onClick={() =>
+            python.execute(
+              python.startRemotePlaySession(
+                selectedPlayerIds[0],
+                selectedPlayerIds[1],
+                selectedPlayerIds[2]
+              )
+            )
+          }
+        >
+          Start Remote Play Session
+        </ButtonItem>
       </PanelSectionRow>
       <PanelSectionRow>
-      <DropdownItem
-            label={"Friend 1"}
-            description={rerenderTrigger}
-            menuLabel={"Select First Player to Invite"}
+        {Array.from(Array(3).keys()).map((index) => (
+          <DropdownItem
+            label={`Friend ${index + 1}`}
+            menuLabel={"Select Player to Invite"}
             rgOptions={FriendsDropdownOptions}
             selectedOption={-1}
-            onChange={(index) => {
-              python.resolve(python.getIDForNameForUI(index.label), setPlayer1ID)
+            onChange={(option) => {
+              handlePlayerSelectionChange(option, index);
             }}
           />
-       <DropdownItem
-            label={"Friend 2"}
-            description={rerenderTrigger}
-            menuLabel={"Select Second Player to Invite"}
-            rgOptions={FriendsDropdownOptions}
-            selectedOption={-1}
-            onChange={(index) => {
-              python.resolve(python.getIDForNameForUI(index.label), setPlayer2ID)
-            }}
-          />
-      <DropdownItem
-            label={"Friend 3"}
-            description={rerenderTrigger}
-            menuLabel={"Select Third Player to Invite"}
-            rgOptions={FriendsDropdownOptions}
-            selectedOption={-1}
-            onChange={(index) => {
-              python.resolve(python.getIDForNameForUI(index.label), setPlayer3ID)
-            }}
-          />
+        ))}
       </PanelSectionRow>
-      <PanelSectionRow>
-        <ButtonItem
-          layout="below"
-          onClick={() => {
-            Router.CloseSideMenus();
-            Router.Navigate("/addFriends");
-          }}
-        >
-          Modify Friends List
-        </ButtonItem>
-        <ButtonItem
-          layout="below"
-          onClick={() => {
-            tmpRender = !tmpRender; setRenderTrigger(getNewRenderTrigger(tmpRender))
-          }}
-        >
-          Refresh Friends List
-        </ButtonItem>
-
-    </PanelSectionRow>
-        <ButtonItem
-          label="Brawlhalla (donor game) must be in your library."
-          layout="below"
-          onClick={() => {
-            Router.CloseSideMenus();
-            Router.NavigateToStoreApp(291550);
-          }}
-        >
-          Brawlhalla Store Page
-        </ButtonItem>
+      <ButtonItem
+        label="Brawlhalla (donor game) must be in your library."
+        layout="below"
+        onClick={() => {
+          Router.CloseSideMenus();
+          Router.NavigateToStoreApp(291550);
+        }}
+      >
+        Brawlhalla Store Page
+      </ButtonItem>
     </PanelSection>
   );
 };
-
-
