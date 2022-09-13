@@ -61,7 +61,7 @@ class Plugin:
             log("Setting permissions")
             rc = 0
             rc = os.system(
-                "chmod 777 /home/deck/homebrew/plugins/RemotePlayWhatever/RemotePlayWhatever.AppImage")
+                "chmod 777 /home/deck/homebrew/plugins/RemotePlayWhatever/bin/RemotePlayWhatever.AppImage")
             log("ended with rc: " + str(rc))
         else:
             log("Skipping permissions")
