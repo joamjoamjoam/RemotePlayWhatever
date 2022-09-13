@@ -36,7 +36,7 @@ class Plugin:
 
         rc = 0
         command = "export DISPLAY=:1 "
-        rpwCommandTemplate = "/home/deck/homebrew/plugins/RemotePlayWhatever/RemotePlayWhatever-0.2.0-x86_64.AppImage -a 291550 -i \"<playerIDString>\""
+        rpwCommandTemplate = "/home/deck/homebrew/plugins/RemotePlayWhatever/bin/RemotePlayWhatever-0.2.0-x86_64.AppImage -a 291550 -i \"<playerIDString>\""
 
         tmpList = []
 
