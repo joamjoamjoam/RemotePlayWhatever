@@ -36,7 +36,7 @@ class Plugin:
 
         rc = 0
         command = "export DISPLAY=:1 "
-        rpwCommandTemplate = "/home/deck/homebrew/plugins/RemotePlayWhatever/bin/RemotePlayWhatever.AppImage -a 291550 -i \"<playerIDString>\""
+        rpwCommandTemplate = os.path.dirname(__file__) + "/bin/RemotePlayWhatever.AppImage -a 291550 -i \"<playerIDString>\""
 
         tmpList = []
 
@@ -61,8 +61,7 @@ class Plugin:
             Initialized = True
             log("Setting permissions")
             rc = 0
-            rc = os.system(
-                "chmod 777 /home/deck/homebrew/plugins/RemotePlayWhatever/bin/RemotePlayWhatever.AppImage")
+            rc = os.system(f"chmod 777 {os.path.dirname(__file__)}/bin/RemotePlayWhatever.AppImage")
             log("ended with rc: " + str(rc))
         else:
             log("Skipping permissions")
