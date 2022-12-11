@@ -1,6 +1,6 @@
 {
   "name": "Remote Play Whatever",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Play Non Steam Games with friends over Remote pLay Together.",
   "scripts": {
     "build": "shx rm -rf dist && rollup -c",
@@ -14,7 +14,7 @@
   "keywords": [
     "plugin",
     "utility",
-    "steam-deck",
+    "steam-deck", 
     "deck"
   ],
   "author": "Trent Callan <trentcalllan@yahoo.com>",
@@ -53,8 +53,8 @@
   "remote_binary" : [
     {
       "name" : "RemotePlayWhatever.AppImage",
-      "url": "https://github.com/m4dEngi/RemotePlayWhatever/releases/download/0.2.1-pre-alpha/RemotePlayWhatever-0.2.0-x86_64.AppImage",
-      "sha256hash" : "c77348ddbe7d276161c766b0fa51c6b1e8ca2b54469cf1d4738e04ee599c0664"
+      "url": "https://github.com/m4dEngi/RemotePlayWhatever/releases/download/0.2.1-pre-alpha/RemotePlayWhatever-0.2.1-x86_64.AppImage",
+      "sha256hash" : "6e38920095cff6e6e39f9cbe6cd51b3865c19af922d56696a4f04a7092c6c54e"
     }
   ] 
 }
