@@ -13,10 +13,25 @@ import { VFC, useMemo, useState } from "react";
 import { FaShip } from "react-icons/fa";
 import * as python from "./python";
 
+declare global {
+  interface Window {
+    friendStore: {
+      allFriends: FriendRaw[]
+    }
+  }
+}
+
 type Friend = {
   name: string;
   steamId: string;
 };
+
+type FriendRaw = Friend & {
+  displayName: string;
+  m_persona: {
+    m_steamid: any
+  }
+}
 
 type SelectedPlayers = string[];
 
@@ -32,7 +47,6 @@ export default definePlugin((serverApi: ServerAPI) => {
 });
 
 const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
-  // @ts-ignore:next-line (window is untyped)
   const friends: Friend[] = window.friendStore.allFriends.map((friend) => {
     return {
       name: friend.displayName,
