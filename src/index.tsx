@@ -123,16 +123,19 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
           />
         </PanelSectionRow>
       ))}
-      <ButtonItem
-        label="Brawlhalla (donor game) must be in your library."
-        layout="below"
-        onClick={() => {
-          Router.CloseSideMenus();
-          Router.NavigateToStoreApp(291550);
-        }}
-      >
-        Brawlhalla Store Page
-      </ButtonItem>
+
+      <PanelSectionRow>
+        <ButtonItem
+          label="Brawlhalla (donor game) must be in your library."
+          layout="below"
+          onClick={() => {
+            Router.CloseSideMenus();
+            Router.NavigateToStoreApp(291550);
+          }}
+        >
+          Brawlhalla Store Page
+        </ButtonItem>
+      </PanelSectionRow>
     </PanelSection>
   );
 };
