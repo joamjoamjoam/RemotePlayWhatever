@@ -109,8 +109,9 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
           Start Remote Play Session
         </ButtonItem>
       </PanelSectionRow>
-      <PanelSectionRow>
-        {Array.from(Array(3).keys()).map((index) => (
+
+      {[0, 1, 2].map((index) => (
+        <PanelSectionRow>
           <DropdownItem
             label={`Friend ${index + 1}`}
             menuLabel={"Select Player to Invite"}
@@ -120,8 +121,8 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
               handlePlayerSelectionChange(option, index);
             }}
           />
-        ))}
-      </PanelSectionRow>
+        </PanelSectionRow>
+      ))}
       <ButtonItem
         label="Brawlhalla (donor game) must be in your library."
         layout="below"
